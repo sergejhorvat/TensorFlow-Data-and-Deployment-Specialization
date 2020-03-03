@@ -3,7 +3,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <script lang="js">
         async function run(){
+			// Url is a network location, it will try to load it as a we page that is hosting it.
+			// Put location for Chrome Web Server folder in that place
             const csvUrl = 'iris.csv';
+			// tf.data.csv takes managment of CSV to load, 
+			// and specify the labels. species is the column name in CSV
             const trainingData = tf.data.csv(csvUrl, {
                 columnConfigs: {
                     species: {
@@ -11,27 +15,46 @@
                     }
                 }
             });
-            
-            const numOfFeatures = (await trainingData.columnNames()).length - 1;
+             
+			// data from tf.data.csv comes back as dictionary, for training we want to convert it to arrays
+	        const numOfFeatures = (await trainingData.columnNames()).length - 1;
             const numOfSamples = 150;
+			// Labels as strings should be converted to one-hot encoded array of values
             const convertedData =
                   trainingData.map(({xs, ys}) => {
-                      const labels = [
+					  // labels is array with 3 elements, so we are doing condition to set every element	
+					  // one-hot encoding conditions...[1,0,0] , [0,1,0], [0,0,1]
+						const labels = [
                             ys.species == "setosa" ? 1 : 0,
                             ys.species == "virginica" ? 1 : 0,
                             ys.species == "versicolor" ? 1 : 0
-                      ] 
-                      return{ xs: Object.values(xs), ys: Object.values(labels)};
-                  }).batch(10);
+						]
+					// return xs array of arrays of features in dimension [150,4]
+					// return ys array of one/hot labels in dimension [150,3]
+                    return{ xs: Object.values(xs), ys: Object.values(labels)};
+                  }).batch(10);  // this data can now be loaded to model trainer
             
+			
+			// Model definitin
             const model = tf.sequential();
-            model.add(tf.layers.dense({inputShape: [numOfFeatures], activation: "sigmoid", units: 5}))
-            model.add(tf.layers.dense({activation: "softmax", units: 3}));
+            model.add(tf.layers.dense({
+						inputShape: [numOfFeatures], 
+						activation: "sigmoid", units: 5}))
+						
+            model.add(tf.layers.dense({
+						activation: "softmax", 
+						units: 3}));
             
-            model.compile({loss: "categoricalCrossentropy", optimizer: tf.train.adam(0.06)});
+						
+            model.compile({
+					loss: "categoricalCrossentropy", 
+					optimizer: tf.train.adam(0.06)});
             
+			// Training, use asyncrounous function await to wait for function to complete before
+			// going to next lines and create predictions withouth finished training
             await model.fitDataset(convertedData, 
-                             {epochs:100,
+                             // JSON style name values
+							 {epochs:100,
                               callbacks:{
                                   onEpochEnd: async(epoch, logs) =>{
                                       console.log("Epoch: " + epoch + " Loss: " + logs.loss);
@@ -41,13 +64,13 @@
             // Test Cases:
             
             // Setosa
-            const testVal = tf.tensor2d([4.4, 2.9, 1.4, 0.2], [1, 4]);
+            //const testVal = tf.tensor2d([4.4, 2.9, 1.4, 0.2], [1, 4]);
             
             // Versicolor
             // const testVal = tf.tensor2d([6.4, 3.2, 4.5, 1.5], [1, 4]);
             
             // Virginica
-            // const testVal = tf.tensor2d([5.8,2.7,5.1,1.9], [1, 4]);
+            const testVal = tf.tensor2d([5.8,2.7,5.1,1.9], [1, 4]);
             
             const prediction = model.predict(testVal);
             const pIndex = tf.argMax(prediction, axis=1).dataSync();
@@ -61,5 +84,9 @@
         run();
     </script>
 <body>
+<h2>IRIS classifier</h2>
+<p>Run script with Chrome Web Server.</p>
+<p>Open DEveloper Tools and check logs to see training process</p>
+
 </body>
 </html>
