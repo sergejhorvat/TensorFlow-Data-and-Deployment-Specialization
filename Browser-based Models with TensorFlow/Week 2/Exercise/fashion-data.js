@@ -24,10 +24,10 @@ const TRAIN_TEST_RATIO = 1 / 7;
 const NUM_TRAIN_ELEMENTS = Math.floor(TRAIN_TEST_RATIO * NUM_DATASET_ELEMENTS);
 const NUM_TEST_ELEMENTS = NUM_DATASET_ELEMENTS - NUM_TRAIN_ELEMENTS;
 
-const MNIST_IMAGES_SPRITE_PATH =
-    'https://storage.googleapis.com/learnjs-data/model-builder/fashion_mnist_images.png';
-const MNIST_LABELS_PATH =
-    'https://storage.googleapis.com/learnjs-data/model-builder/fashion_mnist_labels_uint8';
+const MNIST_IMAGES_SPRITE_PATH ='fashion_mnist_images.png'; // from server local directory
+    //'https://storage.googleapis.com/learnjs-data/model-builder/fashion_mnist_images.png';
+const MNIST_LABELS_PATH ='fashion_mnist_labels_uint8'  // from server local directory
+    //'https://storage.googleapis.com/learnjs-data/model-builder/fashion_mnist_labels_uint8';
 
 /**
  * A class that fetches the sprited MNIST dataset and returns shuffled batches.
@@ -58,10 +58,12 @@ export class FMnistData {
         const chunkSize = 5000;
         canvas.width = img.width;
         canvas.height = chunkSize;
-
+          
+        // Go trought 14 chnunks (70000/5000)
         for (let i = 0; i < NUM_DATASET_ELEMENTS / chunkSize; i++) {
           const datasetBytesView = new Float32Array(
-              datasetBytesBuffer, i * IMAGE_SIZE * chunkSize * 4,
+              datasetBytesBuffer, 
+              i * IMAGE_SIZE * chunkSize * 4,
               IMAGE_SIZE * chunkSize);
           ctx.drawImage(
               img, 0, i * chunkSize, img.width, chunkSize, 0, 0, img.width,
