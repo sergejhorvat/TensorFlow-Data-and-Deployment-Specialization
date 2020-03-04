@@ -24,8 +24,15 @@ const TRAIN_TEST_RATIO = 5 / 6;
 const NUM_TRAIN_ELEMENTS = Math.floor(TRAIN_TEST_RATIO * NUM_DATASET_ELEMENTS);
 const NUM_TEST_ELEMENTS = NUM_DATASET_ELEMENTS - NUM_TRAIN_ELEMENTS;
 
+// Images are sotred in 784x65000x256 png image
+// 784 is flatten image of dimension 28x28px 
+// 65000 is number of image samples
+// 256 is grescale intensity in 8bit 1 chanell color
 const MNIST_IMAGES_SPRITE_PATH =
     'https://storage.googleapis.com/learnjs-data/model-builder/mnist_images.png';
+	
+// Labels are stored as bit flags (10 bits) for a classes with one hot encoding
+// size is 650.000 bytes that is 10 bits for 65000 images.
 const MNIST_LABELS_PATH =
     'https://storage.googleapis.com/learnjs-data/model-builder/mnist_labels_uint8';
 
@@ -43,6 +50,8 @@ export class MnistData {
 
   async load() {
     // Make a request for the MNIST sprited image.
+	// Download the sprite and slice italics
+	// Download the labels and decode them
     const img = new Image();
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -103,6 +112,7 @@ export class MnistData {
         this.datasetLabels.slice(NUM_CLASSES * NUM_TRAIN_ELEMENTS);
   }
 
+  // Get the next training batch, get slicesa nad transfer them from 784 to 28x28px
   nextTrainBatch(batchSize) {
     return this.nextBatch(
         batchSize, [this.trainImages, this.trainLabels], () => {
@@ -119,7 +129,8 @@ export class MnistData {
       return this.testIndices[this.shuffledTestIndex];
     });
   }
-
+  
+  
   nextBatch(batchSize, data, index) {
     const batchImagesArray = new Float32Array(batchSize * IMAGE_SIZE);
     const batchLabelsArray = new Uint8Array(batchSize * NUM_CLASSES);
