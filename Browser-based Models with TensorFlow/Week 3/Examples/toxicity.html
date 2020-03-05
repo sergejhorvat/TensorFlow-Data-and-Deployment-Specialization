@@ -4,9 +4,14 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
 <script>
 const threshold = 0.9;
+// load mode with treshold, it returns "model" that will be use to classify sentances    
 toxicity.load(threshold).then(model => {
     const sentences = ['you suck'];
     model.classify(sentences).then(predictions => {
+        // Predictions are probability distribution of 7 classes
+        // identity_attack, insult, obscene, severe_toxicity, sexual_explicit, threat, toxicity
+        // Each one gets probabiliy and match if true or false with threshold defined
+        // For match true log wich toxic was found
         console.log(predictions);
         for(i=0; i<7; i++){
             if(predictions[i].results[0].match){

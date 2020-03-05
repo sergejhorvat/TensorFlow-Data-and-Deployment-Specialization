@@ -4,15 +4,24 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"> </script> 
 </head>
 <body>
+    <!-- Some sample image to classify -->
     <img id="img" src="coffee.jpg"></img>
     <div id="output" style="font-family:courier;font-size:24px;height=300px"></div>
 </body>
 <script>
+    // This code shuld be on the bottom of the page after </body> tag so it executes after the page has loaded and build the DOM
+    // Create variable img from DOM of image to pass to classifier
     const img = document.getElementById('img');
+    // Get reference to DOM of output to pass prediction result
     const outp = document.getElementById('output');
+    // load object asynchrounously and when (then) is't done then the model will be ready to use
     mobilenet.load().then(model => {
+        // to use model pass the image as paramater
+        // then well get set of predictions
         model.classify(img).then(predictions => {
+            // model returns predictions for top 3 classes (out of 1000)
             console.log(predictions);
+            // Loop trought prediction and output class name and prediction probability
             for(var i = 0; i<predictions.length; i++){
                 outp.innerHTML += "<br/>" + predictions[i].className + " : " + predictions[i].probability;
             }
