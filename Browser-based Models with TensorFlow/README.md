@@ -23,7 +23,7 @@ https://github.com/tensorflow/tfjs-models
 
 
 
-Whitepapaers:
+Whitepapers:
 -------------
 Towards Accurate Multi-person Pose Estimation in the Wild  
 https://arxiv.org/abs/1701.01779  
