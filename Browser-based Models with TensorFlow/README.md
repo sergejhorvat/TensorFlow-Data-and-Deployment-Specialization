@@ -11,3 +11,19 @@ The exercise and example in Week 3 of this course also contains a Jupyter Notebo
 
 
 Have fun learning TensorFlow.js!
+
+
+
+==========================
+Real-time Human Pose Estimation in the Browser with TensorFlow.js  
+https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5  
+
+Pretrained TensorFlow JS models:  
+https://github.com/tensorflow/tfjs-models  
+
+
+
+Whitepapaers:
+-------------
+Towards Accurate Multi-person Pose Estimation in the Wild  
+https://arxiv.org/abs/1701.01779  
