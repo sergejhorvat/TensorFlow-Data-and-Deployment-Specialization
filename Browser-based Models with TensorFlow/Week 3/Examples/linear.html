@@ -2,6 +2,7 @@
 <head>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>   
 <script>
+    // run asynchronously to wait for model to load 
     async function run(){
         const MODEL_URL = 'http://127.0.0.1:8887/model.json';
         const model = await tf.loadLayersModel(MODEL_URL);
@@ -13,5 +14,14 @@
 	run();
 </script>
 </head> 
-<body></body>   
+<body>
+<h2>Run linear model</h2>
+<p>Load linear model in json format that has been previously converted from Python 
+<a href="https://github.com/sergejhorvat/TensorFlow-Data-and-Deployment-Specialization/blob/master/Browser-based%20Models%20with%20TensorFlow/Week%203/Examples/Linear-to-JavaScript.ipynb">
+Linear-toJavaScript.ipynb </a><br>
+via converter: !tensorflowjs_converter --input_format=keras {saved_model_path} ./
+ </p>
+ 
+ <p> Check console for model summary</p>
+</body>   
 </html>
