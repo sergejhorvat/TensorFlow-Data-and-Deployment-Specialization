@@ -24,21 +24,23 @@ async function train() {
   // HINT: Take a look at the Rock-Paper-Scissors example. We also suggest
   // using ReLu activation functions where applicable.
   model = tf.sequential({
-    layers: [
-        
+    layers: [        
       // YOUR CODE HERE
+      tf.layers.flatten({inputShape: mobilenet.outputs[0].shape.slice(1)}),
+      tf.layers.dense({ units: 100, activation: 'relu'}),
+      tf.layers.dense({ units: 5, activation: 'softmax'})
 
     ]
   });
     
    
   // Set the optimizer to be tf.train.adam() with a learning rate of 0.0001.
-  const optimizer = // YOUR CODE HERE
+  const optimizer = tf.train.adam(0.0001); // YOUR CODE HERE
     
         
   // Compile the model using the categoricalCrossentropy loss, and
   // the optimizer you defined above.
-  model.compile(// YOUR CODE HERE);
+  model.compile({optimizer: optimizer, loss: 'categoricalCrossentropy'});// YOUR CODE HERE);
  
   let loss = 0;
   model.fit(dataset.xs, dataset.ys, {
@@ -76,6 +78,11 @@ function handleButton(elem){
         // HINT: Look at the previous cases.
             
         // YOUR CODE HERE
+        case "4":
+			scissorsSamples++;
+			document.getElementById("lizardsamples").innerText = "Lizard samples:" + scissorsSamples;
+			break;  
+
 		
             
 	}
@@ -113,7 +120,9 @@ async function predict() {
         // HINT: Look at the previous cases.
             
         // YOUR CODE HERE 
-	
+	    case 4:
+			predictionText = "I see Lizard";
+			break;
             
 	}
 	document.getElementById("prediction").innerText = predictionText;
