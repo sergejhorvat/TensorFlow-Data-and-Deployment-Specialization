@@ -1,15 +1,23 @@
 <html>
 <head>
+<!--  
+This page will render live stream of webcam 
+it contains all needed libraries to take webcam data and convert it to tensors
+which will be used to train a NN -->
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+<!-- 
+webcam.js - google opensorced to manage webcam in browser and tp convert images to tensors
+-->
 <script src="webcam.js"></script>
 <script src="rps-dataset.js"></script>
 </head>
 <body>
 	<div>
-		<div>
+		<div><!-- video area   -->
 			<video autoplay playsinline muted id="wc" width="224" height="224"></video>
 		</div>
 	</div>
+    <!-- for each samples we want to capture -->
 	<button type="button" id="0" onclick="handleButton(this)" >Rock</button>
 	<button type="button" id="1" onclick="handleButton(this)" >Paper</button>
 	<button type="button" id="2" onclick="handleButton(this)" >Scissors</button>
@@ -22,6 +30,6 @@
 	<button type="button" id="stopPredicting" onclick="stopPredicting()" >Stop Predicting</button>
 	<div id="prediction"></div>
 </body>
-
+<!-- Code part after page load    -->
 <script src="index.js"></script>
 </html>
