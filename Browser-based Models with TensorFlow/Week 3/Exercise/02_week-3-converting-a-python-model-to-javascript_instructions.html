@@ -1,0 +1,193 @@
+<meta charset="utf-8"/>
+<co-content>
+ <p>
+  In this exercise, you’ll train a model in Python, and convert it to JavaScript.
+ </p>
+ <p>
+  Open the
+  <strong>
+   TFJS_Week3_Exercise.ipynb
+  </strong>
+  Jupyter notebook found in the following folder in the GitHub repository:
+ </p>
+ <p>
+  <a href="https://github.com/lmoroney/dlaicourse/tree/master/TensorFlow%20Deployment/Course%201%20-%20TensorFlow-JS/Week%203/Exercise" title="">
+   dlaicourse/TensorFlow Deployment/Course 1 - TensorFlow-JS/Week 3/Exercise/
+  </a>
+ </p>
+ <p>
+  To run this notebook you will need have installed Jupyter with Python 3, TensorFlow 2.0, Tensorflow.js, NumPy, and Matplotlib.
+ </p>
+ <p>
+  In this notebook we train a neural network to classy images of Cats and Dogs. It was used in the
+  <a href="https://www.coursera.org/learn/introduction-tensorflow/" title="">
+   Introduction to TensorFlow
+  </a>
+  class here at Coursera, which can give you a primer in using Python to build models. At the bottom of the notebook are sections for you to fill-in --  saving your model as a Keras HDF5 file, and then using the TensorFlow.js converter to convert it to JavaScript. You must fill-in the missing code in the parts labeled:
+ </p>
+ <p>
+  # YOUR CODE HERE
+ </p>
+ <p>
+  <strong>
+   NOTE:
+  </strong>
+  The convolutional neural network in this notebook can take about
+  <strong>
+   4 minutes to train
+  </strong>
+  , however, this time can vary depending on your setup.
+ </p>
+ <p>
+  If you do things correctly and run the code successfully, you will end up with a single JSON file named
+  <strong>
+   model.json
+  </strong>
+  and various
+  <strong>
+   .bin
+  </strong>
+  files, such as
+  <strong>
+   group1-shard1of10.bin
+  </strong>
+  . The number of
+  <strong>
+   .bin
+  </strong>
+  files will depend on the size of your model: the larger your model, the greater the number of
+  <strong>
+   .bin
+  </strong>
+  files. If you have a small model you will end up with just 1
+  <strong>
+   .bin
+  </strong>
+  file.
+ </p>
+ <p>
+  You must upload the
+  <strong>
+   model.json
+  </strong>
+  and all the
+  <strong>
+   .bin
+  </strong>
+  files in a
+  <strong>
+   single Zip file
+  </strong>
+  to be graded. This single Zip file must contain a single
+  <strong>
+   model.json
+  </strong>
+  file and all the
+  <strong>
+   .bin
+  </strong>
+  files:
+ </p>
+ <ol bullettype="numbers">
+  <li>
+   <p>
+    <strong>
+     model.json
+    </strong>
+    : Contains the model architecture,
+    <em>
+     i.e.
+    </em>
+    the type and size of each layer.
+   </p>
+  </li>
+  <li>
+   <p>
+    <strong>
+     group1-shard1of10.bin
+    </strong>
+    : Contains part of the weights of the model.
+   </p>
+  </li>
+  <li>
+   <p>
+    <strong>
+     group1-shard2of10.bin
+    </strong>
+    : Contains part of the weights of the model.
+   </p>
+  </li>
+  <li>
+   <p>
+    <strong>
+     group1-shard3of10.bin
+    </strong>
+    : Contains part of the weights of the model.
+   </p>
+  </li>
+  <li>
+   <p>
+    <strong>
+     group1-shard4of10.bin
+    </strong>
+    : Contains part of the weights of the model.
+   </p>
+  </li>
+  <li>
+   <p>
+    etc...
+   </p>
+  </li>
+ </ol>
+ <p>
+  Good Luck!
+ </p>
+</co-content>
+<style>
+ body {
+    padding: 50px 85px 50px 85px;
+}
+
+table th, table td {
+    border: 1px solid #e0e0e0;
+    padding: 5px 20px;
+    text-align: left;
+}
+input {
+    margin: 10px;
+}
+}
+th {
+    font-weight: bold;
+}
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+img {
+    height: auto;
+    max-width: 100%;
+}
+pre {
+    display: block;
+    margin: 20px;
+    background: #424242;
+    color: #fff;
+    font-size: 13px;
+    white-space: pre-wrap;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    border: 1px solid #ccc;
+}
+</style>
+<script async="" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+</script>
+<script type="text/x-mathjax-config">
+ MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ['$','$'] ],
+      displayMath: [ ["\\[","\\]"] ],
+      processEscapes: true
+    }
+  });
+</script>
