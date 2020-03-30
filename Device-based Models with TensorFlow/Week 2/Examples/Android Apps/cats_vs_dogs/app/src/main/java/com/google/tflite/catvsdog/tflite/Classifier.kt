@@ -37,18 +37,24 @@ class Classifier(assetManager: AssetManager, modelPath: String, labelPath: Strin
         val options = Interpreter.Options()
         options.setNumThreads(5)
         options.setUseNNAPI(true)
+        // Initializing the Interpreter via methods
         interpreter = Interpreter(loadModelFile(assetManager, modelPath), options)
         lableList = loadLabelList(assetManager, labelPath)
     }
 
+    // Load model
     private fun loadModelFile(assetManager: AssetManager, modelPath: String): MappedByteBuffer {
+        // Get the file description of the model
         val fileDescriptor = assetManager.openFd(modelPath)
+        // Read model file's channel
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
         val fileChannel = inputStream.channel
         val startOffset = fileDescriptor.startOffset
         val declaredLength = fileDescriptor.declaredLength
+        // return model in MappedByteBuffer format
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
+
 
     private fun loadLabelList(assetManager: AssetManager, labelPath: String): List<String> {
         return assetManager.open(labelPath).bufferedReader().useLines { it.toList() }

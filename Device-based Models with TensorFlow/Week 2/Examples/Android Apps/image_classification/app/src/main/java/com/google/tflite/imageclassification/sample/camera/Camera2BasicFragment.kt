@@ -886,18 +886,23 @@ class Camera2BasicFragment : Fragment(), View.OnClickListener,
                 rgbBytes = IntArray(previewSize.width * previewSize.height)
             }
             try {
+                // Acquire image from the camera stream
                 val image: Image = it?.acquireLatestImage()!!
                 if (isProcessingFrame) {
                     image!!.close()
                 } else {
                     isProcessingFrame = true
                     Trace.beginSection("imageAvailable")
+                    // Get collections of planes that contain metadata about raw pixels, we can extract raw pixels
                     val planes = image!!.getPlanes()
+                    // Convert plane to YUV image format
                     fillBytes(planes, yuvBytes)
+                    // Strip Y U V  channels
                     yRowStride = planes[0].getRowStride()
                     val uvRowStride = planes[1].getRowStride()
                     val uvPixelStride = planes[1].getPixelStride()
 
+                    // Convert YUV from camera to ARGB format
                     imageConverter = Runnable {
                         ImageUtils.convertYUV420ToARGB8888(
                                 yuvBytes[0],

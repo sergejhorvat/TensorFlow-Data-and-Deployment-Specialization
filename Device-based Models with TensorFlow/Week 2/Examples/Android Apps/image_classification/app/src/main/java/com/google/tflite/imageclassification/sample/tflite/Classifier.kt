@@ -34,6 +34,7 @@ class Classifier(assetManager: AssetManager, modelPath: String, labelPath: Strin
         }
     }
 
+    // Set the interpreter options
     init {
         val tfliteOptions = Interpreter.Options()
         tfliteOptions.setNumThreads(5)
@@ -41,32 +42,35 @@ class Classifier(assetManager: AssetManager, modelPath: String, labelPath: Strin
         INTERPRETER = Interpreter(loadModelFile(assetManager, modelPath),tfliteOptions)
         LABEL_LIST = loadLabelList(assetManager, labelPath)
     }
-
+    // Loading model and labels file into the interpreter
     private fun loadModelFile(assetManager: AssetManager, modelPath: String): MappedByteBuffer {
+        // Get the description of the model
         val fileDescriptor = assetManager.openFd(modelPath)
+        // Read the model file's channels
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
         val fileChannel = inputStream.channel
         val startOffset = fileDescriptor.startOffset
         val declaredLength = fileDescriptor.declaredLength
+        // return model
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
 
     private fun loadLabelList(assetManager: AssetManager, labelPath: String): List<String> {
         return assetManager.open(labelPath).bufferedReader().useLines { it.toList() }
-
     }
 
     fun recognizeImage(bitmap: Bitmap): List<Recognition> {
+        // Resize image
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, INPUT_SIZE, INPUT_SIZE, false)
+        // Convert scaled bitmap to bytebuffer (vector)
         val byteBuffer = convertBitmapToByteBuffer(scaledBitmap)
         val result = Array(1) { ByteArray(LABEL_LIST.size) }
         INTERPRETER.run(byteBuffer, result)
         return getSortedResult(result)
     }
 
-
+    // Prepare the input for model
     private fun addPixelValue(byteBuffer: ByteBuffer, intValue: Int): ByteBuffer {
-
         byteBuffer.put((intValue.shr(16) and 0xFF).toByte())
         byteBuffer.put((intValue.shr(8) and 0xFF).toByte())
         byteBuffer.put((intValue and 0xFF).toByte())

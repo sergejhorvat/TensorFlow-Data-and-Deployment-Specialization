@@ -38,11 +38,15 @@ class ImageClassifierActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    // Main function when users taps or clicks on view
     override fun onClick(view: View?) {
+        // Current view is found and current bitmap is found and mapped to bitmap variable
         val bitmap = ((view as ImageView).drawable as BitmapDrawable).bitmap
 
+        // Classifier
         val result = classifier.recognizeImage(bitmap)
 
+        // Result is sent  to pop up box (toast)
         runOnUiThread { Toast.makeText(this, result.get(0).title, Toast.LENGTH_SHORT).show() }
     }
 
