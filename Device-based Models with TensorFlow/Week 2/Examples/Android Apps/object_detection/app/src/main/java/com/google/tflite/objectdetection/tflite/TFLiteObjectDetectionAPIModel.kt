@@ -106,7 +106,7 @@ class TFLiteObjectDetectionAPIModel private constructor() : Classifier {
         tfLite!!.runForMultipleInputsOutputs(inputArray, outputMap)
         Trace.endSection()
 
-        // Show the best detections.
+        // Show the best detections. [i]
         // after scaling them back to the input size.
         val recognitions = ArrayList<Classifier.Recognition>(NUM_DETECTIONS)
         for (i in 0 until NUM_DETECTIONS) {

@@ -111,6 +111,8 @@ class MultiBoxTracker(context: Context) {
             boxPaint.color = recognition.color
 
             val cornerSize = Math.min(trackedPos.width(), trackedPos.height()) / 8.0f
+
+            // Draw rectangles
             canvas.drawRoundRect(trackedPos, cornerSize, cornerSize, boxPaint)
 
             val labelString = if (!TextUtils.isEmpty(recognition.title))
@@ -119,6 +121,7 @@ class MultiBoxTracker(context: Context) {
                 String.format("%.2f", 100 * recognition.detectionConfidence)
             //            borderedText.drawText(canvas, trackedPos.left + cornerSize, trackedPos.top,
             // labelString);
+            // Display predicted class
             borderedText.drawText(
                     canvas, trackedPos.left + cornerSize, trackedPos.top, "$labelString%", boxPaint)
         }
@@ -158,6 +161,7 @@ class MultiBoxTracker(context: Context) {
         }
 
         trackedObjects.clear()
+        // Process the results with respect to each individual component
         for (potential in rectsToTrack) {
             val trackedRecognition = TrackedRecognition()
             trackedRecognition.detectionConfidence = potential.first
