@@ -15,6 +15,7 @@
 from tflite_runtime.interpreter import Interpreter
 import numpy as np
 import argparse
+import time
 from PIL import Image
 
 parser = argparse.ArgumentParser(description='Image Classification')
@@ -55,6 +56,9 @@ img = np.array(img)
 # Add a batch dimension
 input_data = np.expand_dims(img, axis=0)
 
+# Measure clock time for Inference
+startInf= time.clock()
+
 # Point the data to be used for testing and run the interpreter
 interpreter.set_tensor(input_details[0]['index'], input_data)
 interpreter.invoke()
@@ -67,3 +71,8 @@ top_k_indices = np.argsort(predictions)[::-1][:top_k_results]
 
 for i in range(top_k_results):
     print(labels[top_k_indices[i]], predictions[top_k_indices[i]] / 255.0)
+
+    
+# Measure time
+end = time.clock()
+print("Time from interpreter invoke: " , end-StartInf)
