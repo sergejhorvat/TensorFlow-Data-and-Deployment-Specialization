@@ -31,6 +31,8 @@ In case you have built TensorFlow from source, you need to import the Interprete
 ```
 from tensorflow.lite.python.interpreter import Interpreter 
 ```
+## Pre optimized mobileNet
+Please find the link to the Pre optimized mobileNet link. [here](https://www.tensorflow.org/lite/models/image_classification/overview)
 
 ## Examples
 
