@@ -75,4 +75,4 @@ for i in range(top_k_results):
     
 # Measure time
 end = time.clock()
-print("Time from interpreter invoke: " , end-StartInf)
+print("Time from interpreter invoke: " , end-startInf)
