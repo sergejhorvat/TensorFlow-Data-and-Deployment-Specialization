@@ -7,10 +7,18 @@ wget https://storage.googleapis.com/download.tensorflow.org/models/tflite/mobile
 unzip mobilenet_v1_1.0_224_quant_and_labels
 ```
 
+## Download files classify.py and dog.jpg to Rasberry Pi, use raw link from GitHub
+```
+wget https://raw.githubusercontent.com/sergejhorvat/TensorFlow-Data-and-Deployment-Specialization/master/Device-based%20Models%20with%20TensorFlow/Week%204/Examples/image_classification/classify.py  
+wget https://raw.githubusercontent.com/sergejhorvat/TensorFlow-Data-and-Deployment-Specialization/master/Device-based%20Models%20with%20TensorFlow/Week%204/Examples/image_classification/dog.jpg
+```
+
 ## Prerequisites
 To install the Python dependencies, run:
 ```
-pip install -r requirements.txt
+sudo apt-get install libjpeg-dev
+pip install numpy
+pip install Pillow
 ```
 
 Next, to run the code on Raspberry Pi, use `classify.py` as follows:
