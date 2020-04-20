@@ -16,7 +16,7 @@ To install just the interpreter, download the appropriate Python wheel for your 
 For example, if you're setting up a Raspberry Pi Model B (using Raspbian Stretch, which has Python 3.5), install the Python wheel as follows (after you click to download the `.whl` file in the provided link):
 
 ```
-pip install tflite_runtime-1.14.0-cp35-cp35m-linux_armv7l.whl
+pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 ```
 
 ### Running inference
